@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ServiceWebModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Monstre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="nom" Type="text" />
+          <Property Name="pv" Type="int" />
+          <Property Name="force" Type="int" />
+          <Property Name="dexterite" Type="int" />
+          <Property Name="drop_xp" Type="int" />
+          <Property Name="drop_argent" Type="int" />
+          <Property Name="proba_drop_argent" Type="float" />
+        </EntityType>
+        <EntityType Name="Objet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="nom" Type="text" />
+          <Property Name="description" Type="text" />
+          <Property Name="propriete_cible" Type="text" />
+          <Property Name="montant" Type="int" />
+        </EntityType>
+        <EntityType Name="Partie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="id_personnage" Type="int" />
+          <Property Name="salle_actuelle" Type="int" />
+          <Property Name="difficulte" Type="int" />
+        </EntityType>
+        <EntityType Name="Personne">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nom" Type="text" />
+          <Property Name="Pv" Type="int" />
+          <Property Name="Force" Type="float" />
+          <Property Name="Dexterite" Type="float" />
+          <Property Name="Fuite" Type="float" />
+          <Property Name="xp" Type="int" />
+          <Property Name="po" Type="int" />
+        </EntityType>
+        <EntityType Name="Salle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="coordonneeX" Type="int" />
+          <Property Name="coordonneeY" Type="int" />
+          <Property Name="id_contenu" Type="int" />
+          <Property Name="type_contenu" Type="int" />
+          <Property Name="portes" Type="text" />
+          <Property Name="etat" Type="int" />
+          <Property Name="id_partie" Type="int" />
+        </EntityType>
+        <EntityType Name="Texte">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="type" Type="text" />
+          <Property Name="contenu" Type="text" />
+        </EntityType>
+        <Association Name="FK_Table_ToPartie">
+          <End Role="Partie" Type="Self.Partie" Multiplicity="0..1" />
+          <End Role="Salle" Type="Self.Salle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Salle">
+              <PropertyRef Name="id_partie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ServiceWebModelStoreContainer">
+          <EntitySet Name="Monstre" EntityType="Self.Monstre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Objet" EntityType="Self.Objet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Partie" EntityType="Self.Partie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personne" EntityType="Self.Personne" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salle" EntityType="Self.Salle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Texte" EntityType="Self.Texte" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Table_ToPartie" Association="Self.FK_Table_ToPartie">
+            <End Role="Partie" EntitySet="Partie" />
+            <End Role="Salle" EntitySet="Salle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ServiceWebModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Monstre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="pv" Type="Int32" />
+          <Property Name="force" Type="Int32" />
+          <Property Name="dexterite" Type="Int32" />
+          <Property Name="drop_xp" Type="Int32" />
+          <Property Name="drop_argent" Type="Int32" />
+          <Property Name="proba_drop_argent" Type="Double" />
+        </EntityType>
+        <EntityType Name="Objet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="propriete_cible" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="montant" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Partie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="id_personnage" Type="Int32" />
+          <Property Name="salle_actuelle" Type="Int32" />
+          <Property Name="difficulte" Type="Int32" />
+          <NavigationProperty Name="Salle" Relationship="Self.FK_Table_ToPartie" FromRole="Partie" ToRole="Salle" />
+        </EntityType>
+        <EntityType Name="Personne">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Pv" Type="Int32" />
+          <Property Name="Force" Type="Double" />
+          <Property Name="Dexterite" Type="Double" />
+          <Property Name="Fuite" Type="Double" />
+          <Property Name="xp" Type="Int32" />
+          <Property Name="po" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Salle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="coordonneeX" Type="Int32" />
+          <Property Name="coordonneeY" Type="Int32" />
+          <Property Name="id_contenu" Type="Int32" />
+          <Property Name="type_contenu" Type="Int32" />
+          <Property Name="portes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="etat" Type="Int32" />
+          <Property Name="id_partie" Type="Int32" />
+          <NavigationProperty Name="Partie" Relationship="Self.FK_Table_ToPartie" FromRole="Salle" ToRole="Partie" />
+        </EntityType>
+        <EntityType Name="Texte">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="contenu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Table_ToPartie">
+          <End Role="Partie" Type="Self.Partie" Multiplicity="0..1" />
+          <End Role="Salle" Type="Self.Salle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Salle">
+              <PropertyRef Name="id_partie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ServiceWebEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Monstre" EntityType="Self.Monstre" />
+          <EntitySet Name="Objet" EntityType="Self.Objet" />
+          <EntitySet Name="Partie" EntityType="Self.Partie" />
+          <EntitySet Name="Personne" EntityType="Self.Personne" />
+          <EntitySet Name="Salle" EntityType="Self.Salle" />
+          <EntitySet Name="Texte" EntityType="Self.Texte" />
+          <AssociationSet Name="FK_Table_ToPartie" Association="Self.FK_Table_ToPartie">
+            <End Role="Partie" EntitySet="Partie" />
+            <End Role="Salle" EntitySet="Salle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ServiceWebModelStoreContainer" CdmEntityContainer="ServiceWebEntities">
+          <EntitySetMapping Name="Monstre">
+            <EntityTypeMapping TypeName="ServiceWebModel.Monstre">
+              <MappingFragment StoreEntitySet="Monstre">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="pv" ColumnName="pv" />
+                <ScalarProperty Name="force" ColumnName="force" />
+                <ScalarProperty Name="dexterite" ColumnName="dexterite" />
+                <ScalarProperty Name="drop_xp" ColumnName="drop_xp" />
+                <ScalarProperty Name="drop_argent" ColumnName="drop_argent" />
+                <ScalarProperty Name="proba_drop_argent" ColumnName="proba_drop_argent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Objet">
+            <EntityTypeMapping TypeName="ServiceWebModel.Objet">
+              <MappingFragment StoreEntitySet="Objet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="propriete_cible" ColumnName="propriete_cible" />
+                <ScalarProperty Name="montant" ColumnName="montant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Partie">
+            <EntityTypeMapping TypeName="ServiceWebModel.Partie">
+              <MappingFragment StoreEntitySet="Partie">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="id_personnage" ColumnName="id_personnage" />
+                <ScalarProperty Name="salle_actuelle" ColumnName="salle_actuelle" />
+                <ScalarProperty Name="difficulte" ColumnName="difficulte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personne">
+            <EntityTypeMapping TypeName="ServiceWebModel.Personne">
+              <MappingFragment StoreEntitySet="Personne">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Pv" ColumnName="Pv" />
+                <ScalarProperty Name="Force" ColumnName="Force" />
+                <ScalarProperty Name="Dexterite" ColumnName="Dexterite" />
+                <ScalarProperty Name="Fuite" ColumnName="Fuite" />
+                <ScalarProperty Name="xp" ColumnName="xp" />
+                <ScalarProperty Name="po" ColumnName="po" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salle">
+            <EntityTypeMapping TypeName="ServiceWebModel.Salle">
+              <MappingFragment StoreEntitySet="Salle">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="coordonneeX" ColumnName="coordonneeX" />
+                <ScalarProperty Name="coordonneeY" ColumnName="coordonneeY" />
+                <ScalarProperty Name="id_contenu" ColumnName="id_contenu" />
+                <ScalarProperty Name="type_contenu" ColumnName="type_contenu" />
+                <ScalarProperty Name="portes" ColumnName="portes" />
+                <ScalarProperty Name="etat" ColumnName="etat" />
+                <ScalarProperty Name="id_partie" ColumnName="id_partie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Texte">
+            <EntityTypeMapping TypeName="ServiceWebModel.Texte">
+              <MappingFragment StoreEntitySet="Texte">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="contenu" ColumnName="contenu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
